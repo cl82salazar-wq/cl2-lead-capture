@@ -17,7 +17,9 @@ Pre-launch lead capture you can open locally (double-click `index.html`) or on G
 
 ## Form submit choice (no backend yet)
 
-**Primary: download a JSON lead file + optional mailto.**
+**Primary when `WEB3FORMS_ACCESS_KEY` is set:** email the lead to `cl82salazar@gmail.com` via [Web3Forms](https://web3forms.com) (free).
+
+**Fallback / no key:** download a JSON lead file + optional mailto.
 
 Why this over mailto-only:
 

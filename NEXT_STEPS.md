@@ -37,6 +37,18 @@ Support: cl82salazar@gmail.com · SLA: 24 business hours
 
 ---
 
+
+## 1b) Inbox leads without Tally (recommended while Etsy/Tally wait)
+
+1. Create a free key at https://web3forms.com (send-to: `cl82salazar@gmail.com`).
+2. Paste the access key into `form.js` → `WEB3FORMS_ACCESS_KEY`.
+3. Redeploy / push to `cl2-lead-capture` (Pages rebuilds from `main`).
+4. Submit a test lead → confirm email hits the inbox → reply within SLA.
+5. JSON download still runs as fallback if the key is wrong or the API errors.
+
+This unblocks **lead → quote → Shopify order** without waiting on Tally, Google Forms, or Etsy.
+
+---
 ## 2) Wire auto-reply + owner notify
 
 Use copy from:

@@ -5,6 +5,9 @@
   var SLA_HOURS = "24";
   var ETSY_SHOP_URL = ""; // TODO: paste Etsy shop URL
   var WEBSITE_URL = "https://cl2-smart-services.myshopify.com";
+  // Free email inbox for leads (no Tally). Get key at https://web3forms.com → paste below.
+  // Leave empty to keep JSON-download + optional mailto only.
+  var WEB3FORMS_ACCESS_KEY = "";
 
   var form = document.getElementById("contact-form");
   if (!form) return;
@@ -110,6 +113,60 @@
       + "&body=" + encodeURIComponent(body);
   }
 
+  function finishSubmit(lead, filename) {
+    try {
+      sessionStorage.setItem("cl2_last_lead", JSON.stringify(lead));
+      if (filename) sessionStorage.setItem("cl2_last_lead_file", filename);
+    } catch (err) {
+      /* private mode etc. */
+    }
+
+    var openMail = document.getElementById("also_mailto");
+    if (openMail && openMail.checked) {
+      window.location.href = buildMailto(lead);
+      setTimeout(function () {
+        window.location.href = "thank-you.html";
+      }, 400);
+      return;
+    }
+
+    window.location.href = "thank-you.html";
+  }
+
+  function submitViaWeb3Forms(lead) {
+    var payload = {
+      access_key: WEB3FORMS_ACCESS_KEY,
+      subject: "[CL2 Lead] " + lead.what_can_we_help_with + " — " + lead.name,
+      from_name: "CL2 Website",
+      email: lead.email,
+      name: lead.name,
+      what_can_we_help_with: lead.what_can_we_help_with,
+      product_type: lead.product_type,
+      quantity: lead.quantity,
+      deadline: lead.deadline,
+      tell_us_more: lead.tell_us_more,
+      how_did_you_find_us: lead.how_did_you_find_us,
+      anything_else: lead.anything_else,
+      source: lead.source,
+      status: lead.status,
+      submitted_at: lead.submitted_at,
+      replyto: lead.email
+    };
+
+    return fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Accept: "application/json" },
+      body: JSON.stringify(payload)
+    }).then(function (res) {
+      return res.json().then(function (data) {
+        if (!res.ok || (data && data.success === false)) {
+          throw new Error((data && data.message) || "Web3Forms submit failed");
+        }
+        return data;
+      });
+    });
+  }
+
   form.addEventListener("submit", function (e) {
     e.preventDefault();
     if (!validate()) {
@@ -119,25 +176,37 @@
     }
 
     var lead = buildLead();
-    var filename = downloadJson(lead);
-    try {
-      sessionStorage.setItem("cl2_last_lead", JSON.stringify(lead));
-      sessionStorage.setItem("cl2_last_lead_file", filename);
-    } catch (err) {
-      /* private mode etc. */
+    var btn = form.querySelector('[type="submit"]');
+    if (btn) {
+      btn.disabled = true;
+      btn.setAttribute("aria-busy", "true");
     }
 
-    var openMail = document.getElementById("also_mailto");
-    if (openMail && openMail.checked) {
-      window.location.href = buildMailto(lead);
-      // Still navigate to thank-you shortly after
-      setTimeout(function () {
-        window.location.href = "thank-you.html";
-      }, 400);
+    function unlock() {
+      if (btn) {
+        btn.disabled = false;
+        btn.removeAttribute("aria-busy");
+      }
+    }
+
+    // Prefer inbox delivery when key is set (unlocks leads without Tally).
+    if (WEB3FORMS_ACCESS_KEY) {
+      submitViaWeb3Forms(lead)
+        .then(function () {
+          finishSubmit(lead, "");
+        })
+        .catch(function () {
+          // Fall back so a bad key never loses the lead
+          var filename = downloadJson(lead);
+          finishSubmit(lead, filename);
+        })
+        .then(unlock, unlock);
       return;
     }
 
-    window.location.href = "thank-you.html";
+    var filename = downloadJson(lead);
+    finishSubmit(lead, filename);
+    unlock();
   });
 
   // Expose config for thank-you page helpers
@@ -146,6 +215,7 @@
     slaHours: SLA_HOURS,
     etsyShopUrl: ETSY_SHOP_URL,
     websiteUrl: WEBSITE_URL,
+    web3formsEnabled: !!WEB3FORMS_ACCESS_KEY,
     buildMailto: buildMailto
   };
 })();
