@@ -5,6 +5,7 @@ Public storefront: https://cl2-smart-services.myshopify.com
 Support: cl82salazar@gmail.com · SLA: 24 business hours
 
 ## Done already
+- [x] Lead site product CTAs → two live Shopify tees ($24.99) + `MARGIN.md` worksheet (COGS from Luke)
 - [x] Hosted static lead site on GitHub Pages: https://cl82salazar-wq.github.io/cl2-lead-capture/
 - [x] Repo: https://github.com/cl82salazar-wq/cl2-lead-capture
 - [x] Static contact + thank-you pages in `website/live/`
