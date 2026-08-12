@@ -22,4 +22,5 @@ At **$24.99** retail:
 - ≥ $5 / unit ⇒ COGS ≤ **$19.99**
 - ≥ 30% contrib ⇒ COGS ≤ **$17.49** (binding)
 
-Do **not** invent Printify numbers — Luke drops live COGS on the unit-econ sheet.
+Do **not** invent Printify numbers — Luke drops live COGS on the unit-econ sheet:
+https://docs.google.com/spreadsheets/d/1SBA6BX0LDzsDhveJVB1Qbm7g1wK1OZQ5O2bQBYCppZw/edit
