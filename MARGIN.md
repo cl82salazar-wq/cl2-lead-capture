@@ -25,4 +25,4 @@ At **$24.99** retail:
 - ≥ 30% contrib ⇒ COGS ≤ **$17.49** (binding)
 
 Do **not** invent Printify numbers — Luke drops live COGS on the unit-econ sheet:
-https://docs.google.com/spreadsheets/d/1ZiNaCE1Ryb-GHpo_fw2ZVN8tmXr3G43dQLkkUaqoKeQ/edit
+https://docs.google.com/spreadsheets/d/1FfD2ZkmzGYSpUfs8aIp3J1joR4fP4eXKfza1ZL8fu5E/edit
