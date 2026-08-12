@@ -58,6 +58,10 @@
       tell_us_more: val("tell_us_more"),
       how_did_you_find_us: val("found_us") || "",
       anything_else: val("anything_else") || "",
+      product_ref: (function () {
+        try { return new URLSearchParams(window.location.search || "").get("ref") || ""; }
+        catch (e) { return ""; }
+      })(),
       file_note: "Static form: ask customer to email attachments to " + SUPPORT_EMAIL,
       owner: "CL",
       next_action: "Send human reply",
@@ -112,6 +116,63 @@
       + "?subject=" + encodeURIComponent(subject)
       + "&body=" + encodeURIComponent(body);
   }
+
+
+  var PRODUCT_REF = {
+    "mans-best-friend": {
+      label: "Man's Best Friend - German Shepherd Unisex T-Shirt",
+      url: "https://cl2-smart-services.myshopify.com/products/mans-best-friend-german-shepherd-unisex-t-shirt"
+    },
+    "loyal-like": {
+      label: "Loyal Like a German Shepherd - Unisex T-Shirt",
+      url: "https://cl2-smart-services.myshopify.com/products/loyal-like-a-german-shepherd-unisex-t-shirt"
+    }
+  };
+
+  function setField(id, value) {
+    var el = document.getElementById(id);
+    if (!el || value == null || value === "") return;
+    el.value = value;
+  }
+
+  function applyQueryPrefill() {
+    var params;
+    try {
+      params = new URLSearchParams(window.location.search || "");
+    } catch (err) {
+      return;
+    }
+    var help = params.get("help");
+    var product = params.get("product");
+    var ref = params.get("ref");
+    var qty = params.get("qty");
+    var more = params.get("more");
+
+    if (help) setField("help_with", help);
+    if (product) setField("product_type", product);
+    if (qty) setField("quantity", qty);
+
+    var refInfo = ref ? PRODUCT_REF[ref] : null;
+    if (refInfo) {
+      if (!val("help_with")) setField("help_with", "Custom / personalized order");
+      if (!val("product_type")) setField("product_type", "T-shirt");
+      var seed = "Interested in: " + refInfo.label + "\n" + refInfo.url + "\n\n";
+      var existing = val("tell_us_more");
+      if (!existing) setField("tell_us_more", seed + "Sizes / colors / personalization:");
+      else if (existing.indexOf(refInfo.url) === -1) setField("tell_us_more", seed + existing);
+    }
+    if (more && !val("tell_us_more")) setField("tell_us_more", more);
+
+    // Soft-scroll to form when deep-linked
+    if (help || product || ref || (window.location.hash || "") === "#contact") {
+      var contact = document.getElementById("contact");
+      if (contact && contact.scrollIntoView) {
+        setTimeout(function () { contact.scrollIntoView({ behavior: "smooth", block: "start" }); }, 50);
+      }
+    }
+  }
+
+  applyQueryPrefill();
 
   function finishSubmit(lead, filename) {
     try {

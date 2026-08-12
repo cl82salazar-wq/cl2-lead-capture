@@ -503,6 +503,10 @@ h1 {
   text-decoration: none;
 }
 
+.product-card .btn + .btn {
+  margin-top: 0.45rem;
+}
+
 .shop__note {
   margin: 0.85rem 0 0;
   color: var(--muted);
