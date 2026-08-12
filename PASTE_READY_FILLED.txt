@@ -1,0 +1,155 @@
+CL2 SMART SERVICES — PASTE-READY COPY (FILLED)
+==============================================
+Filled defaults (2026-08-12):
+  sla_hours      = 24
+  support_email  = cl82salazar@gmail.com
+  etsy_shop_url  = TODO: paste real Etsy shop URL (not found in brand/docs)
+  website_url    = https://cl2-smart-services.myshopify.com
+
+Replace the remaining Etsy TODO lines before publishing publicly (website_url is set to the Shopify storefront).
+
+
+---------- FORM TITLE ----------
+Contact CL2 Smart Services
+
+---------- FORM HEADLINE ----------
+Tell us what you need
+
+---------- FORM SUBHEAD ----------
+Custom designs, bulk orders, or a quick question — we usually reply within 24 business hours.
+
+---------- FORM INTRO ----------
+Thanks for contacting CL2 Smart Services.
+
+Share a few details below and we’ll get back to you within 24 business hours
+(often sooner). For ready-to-order designs, you can also shop our Etsy store anytime:
+TODO: paste real Etsy shop URL
+
+---------- FIELDS (IN ORDER) ----------
+1. Your name                    [Short text]     REQUIRED
+2. Email                        [Email]          REQUIRED
+3. What can we help with?       [Dropdown]       REQUIRED
+     - Custom / personalized order
+     - Bulk or team order
+     - Question about a product
+     - Wholesale / collab
+     - Something else
+4. Product type (if known)      [Dropdown]       optional
+     - Not sure yet
+     - T-shirt
+     - Hoodie / sweatshirt
+     - Mug
+     - Sticker
+     - Other apparel
+     - Home / gift item
+     - Other
+5. Quantity                     [Number/text]    optional
+     placeholder: e.g. 1, 12, 25
+6. Deadline                     [Text or date]   optional
+     placeholder: e.g. Need by Aug 15
+7. Tell us more                 [Long text]      REQUIRED
+     placeholder: Colors, sizes, personalization text, event type, link to inspiration…
+8. How did you find us?         [Dropdown]       optional
+     - Etsy
+     - Instagram
+     - Google / search
+     - Friend or referral
+     - TikTok
+     - Facebook
+     - Other
+9. Anything else we should know?[Long text]      optional
+     placeholder: Gift? Team order? Shipping country?
+10. File upload (optional)      [File]           optional
+     help: PNG, JPG, PDF, or SVG preferred
+     (Skip on static HTML site — ask customer to email files to cl82salazar@gmail.com)
+
+---------- SUBMIT BUTTON ----------
+Send message
+
+---------- PRIVACY LINE ----------
+By submitting, you agree we may email you about this request.
+We don’t sell your info. Questions? cl82salazar@gmail.com
+
+
+========== THANK-YOU PAGE (FULL) ==========
+
+Title: Message sent | CL2 Smart Services
+
+Headline:
+You’re all set — we got your message.
+
+Body:
+Thanks for reaching out to CL2 Smart Services.
+
+A real person will review your request and reply within 24 business hours.
+
+What happens next
+• We review your details (and any files you sent)
+• We reply with answers, options, or a clear quote
+• You decide if you want to move forward — no pressure
+
+While you wait
+Browse ready-to-order designs on Etsy:
+TODO: paste real Etsy shop URL
+
+Need to add something?
+Email cl82salazar@gmail.com.
+
+Button 1: Shop on Etsy → TODO: paste real Etsy shop URL
+Button 2: Back to home → https://cl2-smart-services.myshopify.com  (or use index.html for local static)
+
+
+========== THANK-YOU (SHORT BOX) ==========
+Thanks! CL2 Smart Services received your message.
+We’ll reply within 24 business hours.
+Shop ready-made designs: TODO: paste real Etsy shop URL
+
+
+========== AUTO-REPLY EMAIL ==========
+
+Subject:
+We got your message — CL2 Smart Services
+
+Body:
+Hi {{name}},
+
+Thanks for contacting CL2 Smart Services — we received your message and will reply
+within 24 business hours.
+
+Interest: {{what_can_we_help_with}}
+
+You can browse ready-to-order designs here: TODO: paste real Etsy shop URL
+
+— CL2 Smart Services
+https://cl2-smart-services.myshopify.com
+cl82salazar@gmail.com
+
+
+========== OWNER NOTIFY EMAIL ==========
+
+Subject:
+[CL2 Lead] {{what_can_we_help_with}} — {{name}}
+
+Body:
+New website lead
+
+Name: {{name}}
+Email: {{email}}
+Help with: {{what_can_we_help_with}}
+Product: {{product_type}}
+Qty: {{quantity}}
+Deadline: {{deadline}}
+Found us: {{how_did_you_find_us}}
+
+Message:
+{{tell_us_more}}
+
+{{anything_else}}
+
+→ Log on Leads tab: source = Website_form, status = New
+
+
+========== SITE CTAs ==========
+Nav: Contact
+CTA: Want it customized? Request a custom order →
+Near shop: Prefer a ready-made design? Shop on Etsy. Need something custom? Use the form — we reply within 24 business hours.

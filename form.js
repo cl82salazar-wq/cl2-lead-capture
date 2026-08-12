@@ -1,0 +1,151 @@
+(function () {
+  "use strict";
+
+  var SUPPORT_EMAIL = "cl82salazar@gmail.com";
+  var SLA_HOURS = "24";
+  var ETSY_SHOP_URL = ""; // TODO: paste Etsy shop URL
+  var WEBSITE_URL = "https://cl2-smart-services.myshopify.com";
+
+  var form = document.getElementById("contact-form");
+  if (!form) return;
+
+  function val(id) {
+    var el = document.getElementById(id);
+    return el ? String(el.value || "").trim() : "";
+  }
+
+  function markInvalid(id, bad) {
+    var field = document.getElementById(id);
+    if (!field) return;
+    var wrap = field.closest(".field");
+    if (wrap) wrap.classList.toggle("invalid", !!bad);
+  }
+
+  function validate() {
+    var ok = true;
+    var name = val("name");
+    var email = val("email");
+    var help = val("help_with");
+    var more = val("tell_us_more");
+    var emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+    markInvalid("name", !name);
+    markInvalid("email", !email || !emailOk);
+    markInvalid("help_with", !help);
+    markInvalid("tell_us_more", !more);
+
+    if (!name || !email || !emailOk || !help || !more) ok = false;
+    return ok;
+  }
+
+  function buildLead() {
+    var now = new Date();
+    return {
+      form_version: "v1",
+      source: "Website_form",
+      status: "New",
+      submitted_at: now.toISOString(),
+      sla_hours: SLA_HOURS,
+      name: val("name"),
+      email: val("email"),
+      what_can_we_help_with: val("help_with"),
+      product_type: val("product_type") || "",
+      quantity: val("quantity") || "",
+      deadline: val("deadline") || "",
+      tell_us_more: val("tell_us_more"),
+      how_did_you_find_us: val("found_us") || "",
+      anything_else: val("anything_else") || "",
+      file_note: "Static form: ask customer to email attachments to " + SUPPORT_EMAIL,
+      owner: "CL",
+      next_action: "Send human reply",
+      support_email: SUPPORT_EMAIL
+    };
+  }
+
+  function downloadJson(lead) {
+    var stamp = lead.submitted_at.replace(/[:.]/g, "-");
+    var safeName = (lead.name || "lead").replace(/[^\w\-]+/g, "_").slice(0, 40);
+    var filename = "CL2-lead-" + safeName + "-" + stamp + ".json";
+    var blob = new Blob([JSON.stringify(lead, null, 2)], { type: "application/json" });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(function () { URL.revokeObjectURL(url); }, 1500);
+    return filename;
+  }
+
+  function buildMailto(lead) {
+    var subject = "[CL2 Lead] " + lead.what_can_we_help_with + " — " + lead.name;
+    var body = [
+      "New website lead",
+      "",
+      "Name: " + lead.name,
+      "Email: " + lead.email,
+      "Help with: " + lead.what_can_we_help_with,
+      "Product: " + (lead.product_type || "(blank)"),
+      "Qty: " + (lead.quantity || "(blank)"),
+      "Deadline: " + (lead.deadline || "(blank)"),
+      "Found us: " + (lead.how_did_you_find_us || "(blank)"),
+      "",
+      "Message:",
+      lead.tell_us_more,
+      "",
+      lead.anything_else ? ("Anything else:\n" + lead.anything_else + "\n") : "",
+      "Submitted: " + lead.submitted_at,
+      "",
+      "→ Log on Leads tab: source = Website_form, status = New"
+    ].join("\n");
+
+    // Keep mailto under common length limits
+    if (body.length > 1600) {
+      body = body.slice(0, 1550) + "\n\n[truncated — see downloaded JSON]";
+    }
+
+    return "mailto:" + encodeURIComponent(SUPPORT_EMAIL)
+      + "?subject=" + encodeURIComponent(subject)
+      + "&body=" + encodeURIComponent(body);
+  }
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    if (!validate()) {
+      var firstBad = form.querySelector(".field.invalid input, .field.invalid select, .field.invalid textarea");
+      if (firstBad) firstBad.focus();
+      return;
+    }
+
+    var lead = buildLead();
+    var filename = downloadJson(lead);
+    try {
+      sessionStorage.setItem("cl2_last_lead", JSON.stringify(lead));
+      sessionStorage.setItem("cl2_last_lead_file", filename);
+    } catch (err) {
+      /* private mode etc. */
+    }
+
+    var openMail = document.getElementById("also_mailto");
+    if (openMail && openMail.checked) {
+      window.location.href = buildMailto(lead);
+      // Still navigate to thank-you shortly after
+      setTimeout(function () {
+        window.location.href = "thank-you.html";
+      }, 400);
+      return;
+    }
+
+    window.location.href = "thank-you.html";
+  });
+
+  // Expose config for thank-you page helpers
+  window.CL2_FORM = {
+    supportEmail: SUPPORT_EMAIL,
+    slaHours: SLA_HOURS,
+    etsyShopUrl: ETSY_SHOP_URL,
+    websiteUrl: WEBSITE_URL,
+    buildMailto: buildMailto
+  };
+})();
