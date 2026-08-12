@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://cl82salazar-wq.github.io/cl2-lead-capture/sitemap.xml
