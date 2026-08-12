@@ -2,6 +2,8 @@
 
 Gates (John/Luke): **contribution ≥ 30%** and **≥ $5 / unit**.
 
+Status (2026-08-12): **soft-launch cleared on hero tees** per John / profit SoT sheet.
+
 Live retail (Shopify, 2026-08-12):
 
 | Product | Retail | Shopify URL |
@@ -23,4 +25,4 @@ At **$24.99** retail:
 - ≥ 30% contrib ⇒ COGS ≤ **$17.49** (binding)
 
 Do **not** invent Printify numbers — Luke drops live COGS on the unit-econ sheet:
-https://docs.google.com/spreadsheets/d/1SBA6BX0LDzsDhveJVB1Qbm7g1wK1OZQ5O2bQBYCppZw/edit
+https://docs.google.com/spreadsheets/d/1ZiNaCE1Ryb-GHpo_fw2ZVN8tmXr3G43dQLkkUaqoKeQ/edit
