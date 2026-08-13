@@ -19,26 +19,13 @@
   var fileNote = document.getElementById("file-note");
   var mailBtn = document.getElementById("email-lead-btn");
   var etsyBtn = document.getElementById("etsy-btn");
-  var homeBtn = document.getElementById("home-btn");
 
   if (etsyBtn) {
     if (ETSY_SHOP_URL) {
       etsyBtn.href = ETSY_SHOP_URL;
+      etsyBtn.hidden = false;
     } else {
-      etsyBtn.href = "#";
-      etsyBtn.addEventListener("click", function (e) {
-        e.preventDefault();
-        alert("TODO: set your Etsy shop URL in thank-you.js / form.js (ETSY_SHOP_URL).");
-      });
-      etsyBtn.title = "TODO: paste Etsy shop URL";
-    }
-  }
-
-  if (homeBtn) {
-    if (WEBSITE_URL) {
-      homeBtn.href = WEBSITE_URL;
-    } else {
-      homeBtn.href = "index.html";
+      etsyBtn.hidden = true;
     }
   }
 
@@ -54,11 +41,11 @@
 
   if (fileNote) {
     if (filename) {
+      fileNote.hidden = false;
       fileNote.textContent =
-        "A JSON lead file (" + filename + ") was downloaded to this device. Import or paste it into your Leads tab.";
+        "A copy of your request was saved on this device as " + filename + ".";
     } else {
-      fileNote.textContent =
-        "If the JSON download did not start, go back and submit again, or email " + SUPPORT_EMAIL + " directly.";
+      fileNote.hidden = true;
     }
   }
 
@@ -66,7 +53,7 @@
     mailBtn.href = buildMailto(lead);
   } else if (mailBtn) {
     mailBtn.href = "mailto:" + encodeURIComponent(SUPPORT_EMAIL)
-      + "?subject=" + encodeURIComponent("CL2 website lead follow-up");
+      + "?subject=" + encodeURIComponent("CL2 website follow-up");
   }
 
   function esc(s) {
