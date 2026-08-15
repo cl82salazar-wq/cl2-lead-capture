@@ -1,11 +1,11 @@
-# Brand slots — locked Concept B
+# Brand slots — locked frames-redo B
 
-Chris locked **Concept B** (overlapping-frame CL²). Do not invent a replacement.
+Chris locked this version. Do not invent a replacement.
 
-| Slot | File | Art |
-|------|------|-----|
-| Favicon | `assets/favicon.png` | circle-safe B |
-| Header mark | `assets/mark.png` | circle-safe B |
-| Logo / og | `assets/logo.png` | square B (navy pad) |
+| Slot | File |
+|------|------|
+| Favicon | `assets/favicon.png` |
+| Header mark | `assets/mark.png` |
+| Logo / og | `assets/logo.png` |
 
-SVG filenames are leftovers from the empty slot. HTML uses the PNGs.
+Solid CL², overlapping frames, full-bleed navy, IG-safe square.
