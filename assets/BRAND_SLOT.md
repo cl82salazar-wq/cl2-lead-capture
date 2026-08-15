@@ -1,16 +1,11 @@
-# Brand drop-in (one pass)
+# Brand slots — locked Concept B
 
-Do **not** invent a mark. When the locked CL2 Smart Services files arrive, overwrite these three paths only:
+Chris locked **Concept B** (overlapping-frame CL²). Do not invent a replacement.
 
-| Slot | Use | Overwrite with |
-|------|-----|----------------|
-| `assets/favicon.svg` | tab icon | locked square/icon |
-| `assets/mark.svg` | header mark (small) | locked mark |
-| `assets/logo.svg` | header wordmark + og:image | locked horizontal logo |
+| Slot | File | Art |
+|------|------|-----|
+| Favicon | `assets/favicon.png` | circle-safe B |
+| Header mark | `assets/mark.png` | circle-safe B |
+| Logo / og | `assets/logo.png` | square B (navy pad) |
 
-Optional later (not required to go live):
-
-- `assets/apple-touch-icon.png` — 180×180 PNG
-- `assets/og.png` — 1200×630 PNG (then point `og:image` at it)
-
-HTML already references the slot names. Services-first copy stays. Old kit filenames remain as backups until the locked files land.
+SVG filenames are leftovers from the empty slot. HTML uses the PNGs.
