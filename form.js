@@ -154,7 +154,7 @@
 
     var refInfo = ref ? PRODUCT_REF[ref] : null;
     if (refInfo) {
-      if (!val("help_with")) setField("help_with", "Custom / personalized order");
+      if (!val("help_with")) setField("help_with", "Merch / a product in the shop");
       if (!val("product_type")) setField("product_type", "T-shirt");
       var seed = "Interested in: " + refInfo.label + "\n" + refInfo.url + "\n\n";
       var existing = val("tell_us_more");
